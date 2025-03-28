@@ -13,6 +13,8 @@ class Enemy(pygame.sprite.Sprite):
         self.image = pygame.image.load('Assets/enemy1.webp').convert_alpha()
         self.rect = self.image.get_rect()
         self.rect.center = self.pos
+        self.final = False
+        self.morto = False
 
     def update(self): # Método que executa o movimento do inimigo
         self.move()
@@ -30,6 +32,8 @@ class Enemy(pygame.sprite.Sprite):
             #se acabou todos os waypoints n faz nada
             # quando chega aqui é pra deletar o inimigo e fazer o player perder vida #provavelmente
             else:
+                self.final = True
+                self.morto = True
                 pass
 
         self.pos += self.movement.normalize() * self.speed
@@ -41,7 +45,7 @@ class enem_type1(Enemy):
     def __init__(self):
         super().__init__()
         
-        self.speed = 1
+        self.speed = 5
         self.health = 100
         self.image = pygame.image.load('Assets/inimigo1.png').convert_alpha()
 
@@ -50,7 +54,7 @@ class enem_type2(Enemy):
     def __init__(self):
         super().__init__()
         
-        self.speed = 5
+        self.speed = 10
         self.health = 100
         self.image = pygame.image.load('Assets/inimigo2.png').convert_alpha()
 
@@ -58,6 +62,6 @@ class enem_type3(Enemy):
     def __init__(self):
         super().__init__()
         
-        self.speed = 2
+        self.speed = 15
         self.health = 100
         self.image = pygame.image.load('Assets/inimigo3.png').convert_alpha()
