@@ -9,3 +9,6 @@ class coin(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         self.rect.center = self.pos
 
+    def update(self):
+        pass
+

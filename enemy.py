@@ -25,8 +25,6 @@ class Enemy(pygame.sprite.Sprite):
     def update(self): # Método que executa o movimento do inimigo
         if not self.morto:
             self.move()
-        else:
-            self.drop()
 
     def move(self): # Método que define o movimento do inimigo
         self.target = Vector2(self.waypoints[self.target_waypoint])
@@ -38,8 +36,11 @@ class Enemy(pygame.sprite.Sprite):
             if self.target_waypoint < len(self.waypoints) - 1:
                 self.target_waypoint += 1
                 
-                #
+                
+                #debug pra testar morte do inimigo
                 self.morto = True
+           
+           
             #se acabou todos os waypoints n faz nada
             else:
                 self.final = True
