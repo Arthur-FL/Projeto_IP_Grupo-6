@@ -5,8 +5,6 @@ import random
 from health_drop import *
 
 
-random.randint(1,3) #pro tempo
-random.randint(1,3) # pro local
 
 
 def main():
@@ -21,11 +19,11 @@ def main():
         tamanho = pygame.transform.scale(img, (1080, 720))
         screen.blit(tamanho, (0, 0))
 
-    # Pathing inicial do inimigo
+    # inimigos iniciais 
     waypoints = mapa.waypoints
-    enemy1 = enem_type1()
-    enemy2 = enem_type2()
-    enemy3 = enem_type3()
+    enemy1 = enem_type1(waypoints)
+    enemy2 = enem_type2(waypoints)
+    enemy3 = enem_type3(waypoints)
     # Criando um grupo para armazenar tds os inimigos
     enemy_group = pygame.sprite.Group()
     enemy_group.add(enemy1)
@@ -44,7 +42,7 @@ def main():
     running = True
     paused = False
     
-    # vida é 10 ^^ 
+   
     vida = 10
     morto = False # quer dizer q n ta vivo :)
 
@@ -62,15 +60,17 @@ def main():
         #TU MORREU
         if vida == 0:
             morto = True
-
+        #lê todos os inputs do jogador
         for event in pygame.event.get():
+           
            #fecha o jogo
             if event.type == pygame.QUIT:
                 running = False
-           # pausa/despausa com ESC 
+           # pausa/despausa (ESC) 
             if event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE:
                 paused = not paused
         
+
         if paused:
             #botar uma tela de pause 
             pygame.draw.rect(screen, 'white', (470, 300, 30, 100))
@@ -82,7 +82,7 @@ def main():
             # coração
             if timer_coracao == 0:
                 timer_coracao = random.randint(60,360)
-                posicao = (random.randint(100,500),random.randint(100,500))
+                posicao = (random.randint(100,900),random.randint(100,600))
                 
                 hp = health_drop(posicao)
                 collectables_group.add(hp)
@@ -100,6 +100,7 @@ def main():
 
 
 
+
         # printar a vida
         screen.blit(fonte.render(str(vida), True, (255, 255, 255)), (1000, 0))
         screen.blit(pygame.image.load('Assets/heart.png').convert_alpha(), (940,7))
@@ -111,10 +112,6 @@ def main():
         if morto:
             screen.blit(pygame.image.load('Assets/game_over.png').convert_alpha(),(0,0))
         
-        
-        
-
-
 
         #pygame.draw.lines(screen, 'white', False, waypoints) #--> faz o caminho visível
         
