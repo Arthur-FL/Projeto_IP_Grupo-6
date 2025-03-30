@@ -35,12 +35,14 @@ class Enemy(pygame.sprite.Sprite):
         
 
     def update(self): # Método que executa o movimento do inimigo
+        # inimigo esá vivo
         if not self.morto:
             self.move()
-
+        # inimigo morreu
         else:
             self.drop()
-            
+
+        # inimigo chegou ao final do caminho
         if self.final:
             for group in self.groups:
                 group.remove(self)
@@ -58,7 +60,7 @@ class Enemy(pygame.sprite.Sprite):
                 self.target_waypoint += 1
                 
                 #debug pra testar morte do inimigo -> mata o inimigo logo no primeiro checkpoint 
-                # self.morto = True
+                self.morto = True
                 # se acabou todos os waypoints, o monstro chegou no final
             else:
                 self.final = True
