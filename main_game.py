@@ -37,7 +37,7 @@ class game:
         self.mapa = map()
 
         ##
-        self.hp = 99
+        self.hp = 999
         self.money = 0
         self.current_wave = 0
         
@@ -84,33 +84,37 @@ class game:
                 # spawna próxima wave de inimigos
                 if command.type == pygame.KEYDOWN and command.key == pygame.K_SPACE and not self.in_wave:
                     self.start_wave(self.current_wave)
-                    self.current_wave += 1
+                    
                 
                 # limpa a tela de coletaveis
                 if command.type == pygame.KEYDOWN and command.key == pygame.K_c:
                     
                     self.dropped_items_group = pygame.sprite.Group()
                     
-
     def start_wave(self, wave):
         self.in_wave = True
         
-        waypoints = self.mapa.waypoints
-        new_enemies = self.mapa.waves[wave] # lista com os tipos de inimigos q precisa spawnar na wave 
-        
-        for enemy_type in new_enemies:
-            if enemy_type == 1:
-                 enemy = enem_type1(self)
-                 self.enemy_group.add(enemy)
-            elif enemy_type == 2:
-                enemy = enem_type2(self)
-                self.enemy_group.add(enemy)
-            elif enemy_type == 3:
-                enemy = enem_type3(self)
-                self.enemy_group.add(enemy)
+        if wave < len(self.mapa.waves):
+            self.current_wave += 1
+            new_enemies = self.mapa.waves[wave] # lista com os tipos de inimigos q precisa spawnar na wave 
             
-            for _ in range(5):
-                self.enemy_group.update()
+            for enemy_type in new_enemies:
+                if enemy_type == '':
+                    pass
+                if enemy_type == 1:
+                    enem_type1(self)
+                    
+                elif enemy_type == 2:
+                    enem_type2(self)
+            
+                elif enemy_type == 3:
+                    enem_type3(self)
+
+                
+                # da tempo dps de spawnar um inimigo <------- n ta funcionando bom 
+                for _ in range(5):
+                    self.enemy_group.update() 
+        
 
     def display(self, screen):
         # reset screen
@@ -142,11 +146,19 @@ class game:
                 screen.blit(self.fonte.render(str(self.hp), True, (255, 255, 255)), (980, 0))
                 screen.blit(pygame.image.load('Assets/heart.png').convert_alpha(), (920,7))
 
+                #hud moeda
+                screen.blit(self.fonte.render(str(self.money), True, (255, 255, 255)), (980, 50))
+                screen.blit( pygame.transform.scale(pygame.image.load('Assets/coin.png'), (50,50)), (920,57))
+                #numero de waves
+                screen.blit(self.fonte.render(str(self.current_wave), True, (255, 255, 255)), (980, 120))
+                screen.blit( pygame.transform.scale(pygame.image.load('Assets/enemy1.webp'), (50,50)), (920,127))
+
+
 
 
                 # HUD imagem de debug pra ver se tem uma wave ta acontecendo
-                if self.in_wave:
-                    screen.blit(pygame.image.load('Assets/enemy1.webp').convert_alpha(), (810, 7))
+                #if self.in_wave:
+                   # screen.blit(pygame.image.load('Assets/enemy1.webp').convert_alpha(), (810, 7))
 
             
             

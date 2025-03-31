@@ -71,9 +71,8 @@ class Enemy(pygame.sprite.Sprite):
     
     def drop(self):
         
-        drop = coin(self.game, self.pos)
-        self.game.all_sprites_group.add(drop)
-        self.game.dropped_items_group.add(drop)
+        coin(self.game, self.pos)
+    
 
         for group in self.groups:
             group.remove(self)
@@ -96,7 +95,7 @@ class enem_type2(Enemy):
         
         self.speed = 10
         self.vida = 100
-        self.dano = 1
+        self.dano = 3
         self.image = pygame.image.load('Assets/inimigo2.png').convert_alpha()
 
 
