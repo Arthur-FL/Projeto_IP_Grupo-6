@@ -1,6 +1,6 @@
 import pygame
 import random
-
+from mouse_detector import *
 
 class drop_generator:
 
@@ -51,4 +51,12 @@ class health_drop(pygame.sprite.Sprite):
         # for group in self.groups:
         #        group.remove(self)
         #  
-        pass
+
+        
+        #checa se o mouse passou por cima e coleta automaticamente.
+        if mouse_hover(self):
+            self.game.hp += 1
+            for group in self.groups:
+                group.remove(self)
+        
+        

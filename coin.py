@@ -1,12 +1,11 @@
 import pygame
 import random
+from mouse_detector import *
 class coin(pygame.sprite.Sprite):
     def __init__(self, game, pos):
         self.game = game
         self.groups = self.game.all_sprites_group, self.game.dropped_items_group
         pygame.sprite.Sprite.__init__(self, self.groups)
-
-
 
 
         self.pos = (pos[0] + random.randint(-20,20), pos[1] + random.randint(-20,20)) # randomiza a posição um pouco
@@ -21,5 +20,11 @@ class coin(pygame.sprite.Sprite):
         # self.game.money += 1 
         # for group in self.groups:
         #        group.remove(self)
+
+        if mouse_hover(self):
+            self.game.money += 1
+            for group in self.groups:
+                group.remove(self)
+        
         pass
 
