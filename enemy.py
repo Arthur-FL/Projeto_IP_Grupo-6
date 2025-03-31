@@ -4,7 +4,7 @@ from pygame.math import Vector2
 import random
 from coin import *
 from player import *
-
+from defenses import *
 
 class Enemy(pygame.sprite.Sprite):
     
@@ -25,7 +25,7 @@ class Enemy(pygame.sprite.Sprite):
         self.vida = 1
    
         # atributos do sprite
-        self.image = pygame.image.load('Assets/enemy1.webp').convert_alpha()
+        self.image = pygame.image.load('Assets/enemy1.png').convert_alpha()
         self.pos = Vector2(self.waypoints[0])
         self.rect = self.image.get_rect()
         self.rect.center = self.pos
@@ -53,6 +53,9 @@ class Enemy(pygame.sprite.Sprite):
                 group.remove(self)
             self.game.hp -= self.dano
 
+        if self.vida <=0:
+            self.morto = True
+
 
     def move(self): # Método que define o movimento do inimigo
         self.target = Vector2(self.waypoints[self.target_waypoint])
@@ -65,7 +68,7 @@ class Enemy(pygame.sprite.Sprite):
                 self.target_waypoint += 1
                 
                 #debug pra testar morte do inimigo -> mata o inimigo logo no primeiro checkpoint 
-                self.morto = True
+                #self.morto = True
                 # se acabou todos os waypoints, o monstro chegou no final
             else:
               
@@ -110,7 +113,7 @@ class enem_type3(Enemy):
         super().__init__(game)
         
         self.speed = 15
-        self.vida = 100
+        self.vida = 35
         self.dano = 1
         self.image = pygame.image.load('Assets/inimigo3.png').convert_alpha()
   
