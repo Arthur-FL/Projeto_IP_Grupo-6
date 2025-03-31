@@ -146,11 +146,9 @@ class game:
                 
                 # HUD vida, talves mover isso pra uma classe de HUD (??)
                 screen.blit(self.fonte.render(str(self.hp), True, (255, 255, 255)), (980, 0))
-            
                 screen.blit(pygame.image.load('Assets/heart.png').convert_alpha(), (920,7))
                 if self.shield:
-                    screen.blit(pygame.transform.scale(pygame.image.load('Assets/shield.png'), (80,80)), (850,-7))
-
+                     screen.blit(pygame.transform.scale(pygame.image.load('Assets/shield.png'), (60,60)), (855,0))
 
                 #hud moeda
                 screen.blit(self.fonte.render(str(self.money), True, (255, 255, 255)), (980, 50))
