@@ -1,6 +1,6 @@
 import pygame
 import random
-from mouse_detector import *
+from collide_detector import *
 class coin(pygame.sprite.Sprite):
     def __init__(self, game, pos):
         self.game = game
@@ -14,14 +14,8 @@ class coin(pygame.sprite.Sprite):
         self.rect.center = self.pos
 
     def update(self):
-        # check se o mouse ta tocando o sprite
-        # se sim:
-        #  
-        # self.game.money += 1 
-        # for group in self.groups:
-        #        group.remove(self)
 
-        if mouse_hover(self):
+        if player_collide(self, self.game.player):
             self.game.money += 1
             for group in self.groups:
                 group.remove(self)

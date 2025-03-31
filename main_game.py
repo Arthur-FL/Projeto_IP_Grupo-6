@@ -16,6 +16,7 @@ class game:
         self.dropped_items_group = pygame.sprite.Group()
         self.projectile_group = pygame.sprite.Group()
         self.HUD_elements_group = pygame.sprite.Group()
+        self.player_group = pygame.sprite.Group()
 
         self.all_sprites_group = pygame.sprite.Group()
 
@@ -37,9 +38,12 @@ class game:
         self.mapa = map()
 
         ##
-        self.hp = 999
+        self.hp = 100
         self.money = 0
         self.current_wave = 0
+        self.shield = False
+
+        self.player = player(self)
         
 
     def update(self):
@@ -50,9 +54,6 @@ class game:
             
             if self.in_wave:
                 self.item_gen.update()
-
-
-
 
             # acabaram os inimigos na wave 
             if not self.enemy_group:
@@ -141,10 +142,15 @@ class game:
                 self.dropped_items_group.draw(screen)
                 self.projectile_group.draw(screen)
                 self.HUD_elements_group.draw(screen)
+                self.player_group.draw(screen)
                 
                 # HUD vida, talves mover isso pra uma classe de HUD (??)
                 screen.blit(self.fonte.render(str(self.hp), True, (255, 255, 255)), (980, 0))
+            
                 screen.blit(pygame.image.load('Assets/heart.png').convert_alpha(), (920,7))
+                if self.shield:
+                    screen.blit(pygame.transform.scale(pygame.image.load('Assets/shield.png'), (80,80)), (850,-7))
+
 
                 #hud moeda
                 screen.blit(self.fonte.render(str(self.money), True, (255, 255, 255)), (980, 50))

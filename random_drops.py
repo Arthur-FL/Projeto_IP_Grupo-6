@@ -1,6 +1,6 @@
 import pygame
 import random
-from mouse_detector import *
+from collide_detector import *
 
 class drop_generator:
 
@@ -19,13 +19,13 @@ class drop_generator:
                 health_drop(self.game, pos)
             if tipo_item == 1:
                 # gera um power-up(?)
-                health_drop(self.game, pos)
+                shield_Drop(self.game, pos)
             if tipo_item == 2:
                 # gera outro tipo de item(?)
                 health_drop(self.game, pos)
 
             # reseta o timer
-            self.timer = random.randint(60,360)
+            self.timer = random.randint(60,60)
 
         
 
@@ -44,18 +44,31 @@ class health_drop(pygame.sprite.Sprite):
 
 
     def update(self):
-        # check se o mouse ta tocando o sprite
-        # se sim:
-        #  
-        # self.game.hp += 1 
-        # for group in self.groups:
-        #        group.remove(self)
-        #  
 
         
         #checa se o mouse passou por cima e coleta automaticamente.
-        if mouse_hover(self):
+        if player_collide(self, self.game.player):
             self.game.hp += 1
+            for group in self.groups:
+                group.remove(self)
+
+
+class shield_Drop(pygame.sprite.Sprite):
+    def __init__(self, game, pos):
+        self.game = game
+        self.groups = self.game.all_sprites_group, self.game.dropped_items_group
+        
+        pygame.sprite.Sprite.__init__(self, self.groups)
+
+        self.pos = pos
+        self.image =  pygame.transform.scale(pygame.image.load('Assets/shield.png'), (80,80))
+        self.rect = self.image.get_rect()
+        self.rect.center = self.pos
+
+
+    def update(self):
+        if player_collide(self, self.game.player):
+            self.game.shield = True
             for group in self.groups:
                 group.remove(self)
         

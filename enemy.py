@@ -3,6 +3,7 @@ import pygame
 from pygame.math import Vector2
 import random
 from coin import *
+from player import *
 
 
 class Enemy(pygame.sprite.Sprite):
@@ -32,6 +33,10 @@ class Enemy(pygame.sprite.Sprite):
         
         self.final = False
         self.morto = False
+
+    
+
+        
         
 
     def update(self): # Método que executa o movimento do inimigo
@@ -63,6 +68,7 @@ class Enemy(pygame.sprite.Sprite):
                 self.morto = True
                 # se acabou todos os waypoints, o monstro chegou no final
             else:
+              
                 self.final = True
 
 
