@@ -93,19 +93,39 @@ class game:
                     
                     self.dropped_items_group = pygame.sprite.Group()
 
-                   
-
-                if command.type == pygame.KEYDOWN and command.key == pygame.K_1:
-                            def_type1(self, self.player.pos)
-
-                if command.type == pygame.KEYDOWN and command.key == pygame.K_2:
-                            def_type2(self, self.player.pos)
-
-                if command.type == pygame.KEYDOWN and command.key == pygame.K_3:
-                            def_type3(self, self.player.pos)
                 
+                if command.type == pygame.KEYDOWN and command.key in [pygame.K_1, pygame.K_2, pygame.K_3]:
+                    pos = self.player.pos       
+
+                    #verifica se ja existe uma defesa na posição
+                    can_place = all(not tower.rect.collidepoint(pos) for tower in self.defense_group)
+
+                    #verifica se ta muito próximo do caminho dos inimigos
+                    def point_near_path(point, path, threshold=50):  #threshold define a distancia minima permitida entre a defesa e o caminho dos inimigos
+
+                        point = Vector2(point)
+                        for i in range(len(path) - 1):
+                            start = Vector2(path[i])
+                            end = Vector2(path[i + 1])
+                            closest = start + (end - start) * max(0, min(1, (point - start).dot(end - start) / (end - start).length_squared()))
+                            if point.distance_to(closest) < threshold:
+                                return True
+                        return False
+
+                    too_close_to_path = point_near_path(pos, self.mapa.waypoints)
+
+
+                    if can_place and not too_close_to_path:
+                        if command.key == pygame.K_1:
+                            def_type1(self, pos)
+                        elif command.key == pygame.K_2:
+                            def_type2(self, pos)
+                        elif command.key == pygame.K_3:
+                            def_type3(self, pos)
+                    
+             
                 if command.type == pygame.KEYDOWN and command.key == pygame.K_TAB:
-                            self.show_range = not self.show_range
+                    self.show_range = not self.show_range
                     
     def start_wave(self, wave):
         self.in_wave = True
