@@ -32,6 +32,7 @@ class game:
         self.in_wave = False
         self.game_over = False
         self.win = False
+        self.show_range = False
         
 
         # mapa 
@@ -91,6 +92,20 @@ class game:
                 if command.type == pygame.KEYDOWN and command.key == pygame.K_c:
                     
                     self.dropped_items_group = pygame.sprite.Group()
+
+                   
+
+                if command.type == pygame.KEYDOWN and command.key == pygame.K_1:
+                            def_type1(self, self.player.pos)
+
+                if command.type == pygame.KEYDOWN and command.key == pygame.K_2:
+                            def_type2(self, self.player.pos)
+
+                if command.type == pygame.KEYDOWN and command.key == pygame.K_3:
+                            def_type3(self, self.player.pos)
+                
+                if command.type == pygame.KEYDOWN and command.key == pygame.K_TAB:
+                            self.show_range = not self.show_range
                     
     def start_wave(self, wave):
         self.in_wave = True
@@ -144,6 +159,11 @@ class game:
                 self.HUD_elements_group.draw(screen)
                 self.player_group.draw(screen)
                 
+                # range das defesas
+                if self.show_range:
+                    for tower in self.defense_group:
+                        pygame.draw.circle(screen, 'black', tower.pos , tower.range - 15, 3)
+
                 # HUD vida, talves mover isso pra uma classe de HUD (??)
                 screen.blit(self.fonte.render(str(self.hp), True, (255, 255, 255)), (980, 0))
                 screen.blit(pygame.image.load('Assets/heart.png').convert_alpha(), (920,7))
@@ -155,7 +175,7 @@ class game:
                 screen.blit( pygame.transform.scale(pygame.image.load('Assets/coin.png'), (50,50)), (920,57))
                 #numero de waves
                 screen.blit(self.fonte.render(str(self.current_wave), True, (255, 255, 255)), (980, 120))
-                screen.blit( pygame.transform.scale(pygame.image.load('Assets/enemy1.webp'), (50,50)), (920,127))
+                screen.blit( pygame.transform.scale(pygame.image.load('Assets/enemy1.png'), (50,50)), (920,127))
 
 
 
