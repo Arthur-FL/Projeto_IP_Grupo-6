@@ -5,6 +5,7 @@ import random
 from coin import *
 from player import *
 from defenses import *
+from random_drops import *
 
 class Enemy(pygame.sprite.Sprite):
     
@@ -22,7 +23,7 @@ class Enemy(pygame.sprite.Sprite):
         #atributos modificaveis entre tipos de inimigos
         self.speed = 1
         self.dano = 1
-        self.vida = 1
+        self.hp = 1
    
         # atributos do sprite
         self.image = pygame.image.load('Assets/enemy1.png').convert_alpha()
@@ -33,6 +34,7 @@ class Enemy(pygame.sprite.Sprite):
         
         self.final = False
         self.morto = False
+        self.on_fire = False
 
     
 
@@ -53,7 +55,11 @@ class Enemy(pygame.sprite.Sprite):
                 group.remove(self)
             self.game.hp -= self.dano
 
-        if self.vida <=0:
+
+        if self.on_fire:
+            self.hp -= 0.25
+
+        if self.hp <=0:
             self.morto = True
 
 
@@ -92,8 +98,8 @@ class enem_type1(Enemy):
     def __init__(self, game):
         super().__init__(game)
         
-        self.speed = 5
-        self.vida = 100
+        self.speed = 2.5
+        self.hp = 80
         self.dano = 1
         self.image = pygame.image.load('Assets/inimigo1.png').convert_alpha()
 
@@ -102,8 +108,8 @@ class enem_type2(Enemy):
     def __init__(self, game):
         super().__init__(game)
         
-        self.speed = 10
-        self.vida = 100
+        self.speed = 2
+        self.hp = 150
         self.dano = 3
         self.image = pygame.image.load('Assets/inimigo2.png').convert_alpha()
 
@@ -112,8 +118,39 @@ class enem_type3(Enemy):
     def __init__(self, game):
         super().__init__(game)
         
-        self.speed = 15
-        self.vida = 35
+        self.speed = 10
+        self.hp = 40
         self.dano = 1
         self.image = pygame.image.load('Assets/inimigo3.png').convert_alpha()
   
+
+class enem_type4(Enemy): # WIP
+    def __init__(self, game):
+        super().__init__(game)
+
+        self.speed = 2
+        self.hp = 250
+        self.dano = 10
+        self.image = pygame.image.load('Assets/enemy1.png').convert_alpha()
+
+    def drop(self):
+        coin(self.game, self.pos)
+
+        enem_type1(self.game)
+        enem_type2(self.game)
+        enem_type3(self.game)
+    
+        for group in self.groups:
+            group.remove(self)
+
+            
+
+
+class enem_type5(Enemy): # WIP
+    def __init__(self, game):
+        super().__init__(game)
+
+        self.speed = 1
+        self.hp = 1
+        self.dano = 1
+        self.image = pygame.image.load('Assets/inimigo3.png').convert_alpha()

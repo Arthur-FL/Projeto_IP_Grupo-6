@@ -33,6 +33,9 @@ class player(pygame.sprite.Sprite):
                 if keys[pygame.K_d] and self.pos[0]< 1080 :
                         self.pos[0] += self.speed
 
+                
+                self.rect.center = self.pos
+
 
 
 

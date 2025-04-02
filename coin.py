@@ -8,7 +8,7 @@ class coin(pygame.sprite.Sprite):
         pygame.sprite.Sprite.__init__(self, self.groups)
 
 
-        self.pos = (pos[0] + random.randint(-20,20), pos[1] + random.randint(-20,20)) # randomiza a posição um pouco
+        self.pos = (pos[0] + random.randint(-40,40), pos[1] + random.randint(-40,40)) # randomiza a posição um pouco
         self.image = pygame.transform.scale(pygame.image.load('Assets/coin.png'), (50,50)) 
         self.rect = self.image.get_rect()
         self.rect.center = self.pos

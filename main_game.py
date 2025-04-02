@@ -32,7 +32,7 @@ class game:
         self.in_wave = False
         self.game_over = False
         self.win = False
-        self.show_range = False
+        self.debug_view = False
         
 
         # mapa 
@@ -94,26 +94,15 @@ class game:
                     self.dropped_items_group = pygame.sprite.Group()
 
                 
-                if command.type == pygame.KEYDOWN and command.key in [pygame.K_1, pygame.K_2, pygame.K_3]:
+                # comandos para colocar defesas
+                if command.type == pygame.KEYDOWN and command.key in [pygame.K_1, pygame.K_2, pygame.K_3, pygame.K_4, pygame.K_5,]:
                     pos = self.player.pos       
 
                     #verifica se ja existe uma defesa na posição
                     can_place = all(not tower.rect.collidepoint(pos) for tower in self.defense_group)
 
                     #verifica se ta muito próximo do caminho dos inimigos
-                    def point_near_path(point, path, threshold=50):  #threshold define a distancia minima permitida entre a defesa e o caminho dos inimigos
-
-                        point = Vector2(point)
-                        for i in range(len(path) - 1):
-                            start = Vector2(path[i])
-                            end = Vector2(path[i + 1])
-                            closest = start + (end - start) * max(0, min(1, (point - start).dot(end - start) / (end - start).length_squared()))
-                            if point.distance_to(closest) < threshold:
-                                return True
-                        return False
-
                     too_close_to_path = point_near_path(pos, self.mapa.waypoints)
-
 
                     if can_place and not too_close_to_path:
                         if command.key == pygame.K_1:
@@ -122,10 +111,15 @@ class game:
                             def_type2(self, pos)
                         elif command.key == pygame.K_3:
                             def_type3(self, pos)
+                        elif command.key == pygame.K_4:
+                            def_type4(self, pos)
+                        elif command.key == pygame.K_5:
+                            def_type5(self, pos)
+                        
                     
              
-                if command.type == pygame.KEYDOWN and command.key == pygame.K_TAB:
-                    self.show_range = not self.show_range
+                if command.type in [pygame.KEYDOWN, pygame.KEYUP] and command.key == pygame.K_TAB:
+                    self.debug_view = not self.debug_view
                     
     def start_wave(self, wave):
         self.in_wave = True
@@ -146,11 +140,20 @@ class game:
                 elif enemy_type == 3:
                     enem_type3(self)
 
+                elif enemy_type == 4:
+                    enem_type4(self)
+
+                elif enemy_type == 5:
+                    enem_type5(self)
+
+                    
+
                 
                 # da tempo dps de spawnar um inimigo <------- n ta funcionando bom 
                 for _ in range(5):
                     self.enemy_group.update() 
-        
+        else:
+            self.win = True
 
     def display(self, screen):
         # reset screen
@@ -161,7 +164,7 @@ class game:
             self.screen.blit(pygame.image.load('Assets/game_over.png').convert_alpha(),(0,0))
         # tela de vitoria
         elif self.win:
-            self.screen.blit(pygame.image.load('Assets/game_over.png').convert_alpha(),(0,0)) # ainda ta usando a tela de game over
+            self.screen.blit(pygame.transform.scale(pygame.image.load('Assets/enemy1.png'), (1080,720)),(0,0)) # ainda ta usando a tela de game over
         else:
 
 
@@ -178,11 +181,6 @@ class game:
                 self.projectile_group.draw(screen)
                 self.HUD_elements_group.draw(screen)
                 self.player_group.draw(screen)
-                
-                # range das defesas
-                if self.show_range:
-                    for tower in self.defense_group:
-                        pygame.draw.circle(screen, 'black', tower.pos , tower.range - 15, 3)
 
                 # HUD vida, talves mover isso pra uma classe de HUD (??)
                 screen.blit(self.fonte.render(str(self.hp), True, (255, 255, 255)), (980, 0))
@@ -198,9 +196,29 @@ class game:
                 screen.blit( pygame.transform.scale(pygame.image.load('Assets/enemy1.png'), (50,50)), (920,127))
 
 
+                # debug view
+                if self.debug_view:
+                    # atributos das defesas
+                    for tower in self.defense_group:
+                        pos = tower.pos.copy()
+                        pos[0] -= 25
+                        pos[1] -= 110
+                        pygame.draw.circle(screen, 'black', tower.pos , tower.range - 20, 3)
+                        screen.blit(self.fonte.render(str(tower.cooldown), True, (255, 255, 255)), pos)
+
+                    # vida dos inimigos
+                    for enemy in self.enemy_group:
+                        pos = enemy.pos.copy()
+                        pos[0] -= 25
+                        pos[1] -= 110
+                        screen.blit(self.fonte.render(str(enemy.hp), True, (255, 255, 255)), pos)
+
+                    # caminho 
+                    pygame.draw.lines(screen, 'white', False, self.mapa.waypoints)
 
 
-                # HUD imagem de debug pra ver se tem uma wave ta acontecendo
+
+                #HUD imagem de debug pra ver se tem uma wave ta acontecendo
                 #if self.in_wave:
                    # screen.blit(pygame.image.load('Assets/enemy1.webp').convert_alpha(), (810, 7))
 
