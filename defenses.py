@@ -10,7 +10,7 @@ class defense(pygame.sprite.Sprite):
                 pygame.sprite.Sprite.__init__(self, self.groups)
 
 
-                self.image = pygame.transform.scale(pygame.image.load('Assets/enemy1.png'), (60,60))
+                self.image = pygame.transform.scale(pygame.image.load('Assets/enemy1.png'), (50,50))
                 self.pos = Vector2(pos)
                 self.rect = self.image.get_rect()
                 self.rect.center = self.pos
@@ -18,17 +18,16 @@ class defense(pygame.sprite.Sprite):
 
                 #atributos diferentes nas torres
                 self.fire_rate = 1
-                self.dano = 1 # dano ou tipo de projetil
+                self.dano = 1
                 self.range = 1
                 self.cost = 0
-                #
                 
                 
-                self.cooldown = 1000
+                self.cooldown = 100
 
         def update(self):
                 
-                
+
                 if self.cooldown <= 0:
                         for enemy in self.game.enemy_group:
                         
@@ -36,28 +35,57 @@ class defense(pygame.sprite.Sprite):
                                 dist = vector.length()
 
                                 if dist <= self.range:
-                                        
-                                        self.shoot(enemy)
-                                        self.cooldown = 1000
+                                        enemy.vida -= self.dano
+                                        self.cooldown = 100
                                         break
-                
                 else:
                         self.cooldown -= self.fire_rate 
 
-        def shoot(self, enemy):
-                enemy.hp -= self.dano
 
-
-class def_type1(defense): # basico
+class def_type1(defense):
         def __init__(self, game, pos):
                 super().__init__(game, pos)
+
+                #animação
+                self.sprite_sheet = pygame.image.load('Assets/raposa_esquerda1.png').convert_alpha()
+                self.animation_list = self.load_images()
+                self.frame_index = 0
+                self.update_time = pygame.time.get_ticks()
                 
-                self.image = pygame.transform.scale(pygame.image.load('Assets/enemy1.png'), (60,60))
+
+                self.image = self.animation_list[self.frame_index] #a imagem dele estatico é o primeiro frame da folha de sprite
                 
                 self.fire_rate = 18
                 self.dano = 30
                 self.range = 175
-                self.cost = 0
+                self.animation_delay = 100
+
+        def load_images(self):
+                #pega cada imagem da sequencia de imagens
+                frame_width = self.sprite_sheet.get_width() // 5 #288
+                frame_height = self.sprite_sheet.get_height() # 300
+                animation_list = []
+
+                for x in range(5): #quantidade de passos que tem na imagem
+                    temp_img = self.sprite_sheet.subsurface((x * frame_width, 0, frame_width, frame_height))
+                    animation_list.append(temp_img)
+
+                return animation_list
+        
+        def update(self):
+                self.play_animation()
+        
+        def play_animation(self):
+                #atualizar imagens
+                self.image = self.animation_list[self.frame_index]
+                #checa se passou tempo o suficiente desde a ultima atualização
+                if pygame.time.get_ticks() - self.update_time > self.animation_delay:
+                        self.update_time = pygame.time.get_ticks()
+                        self.frame_index += 1
+                        #ve se a animação e reseta
+                        if self.frame_index >= len(self.animation_list):
+                                self.frame_index = 0
+
 
 class def_type2(defense): # range alto, firerate baixo
         def __init__(self, game, pos):
@@ -115,7 +143,8 @@ class def_type5(defense): # taca fogo nos inimigos sla
         def shoot(self,enemy):
                 enemy.on_fire = True
 
-                
+
+
 
 
 
