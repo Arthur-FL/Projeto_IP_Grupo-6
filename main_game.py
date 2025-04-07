@@ -39,8 +39,8 @@ class game:
         self.mapa = map()
 
         ##
-        self.hp = 100
-        self.money = 0
+        self.hp = 25
+        self.money = 5
         self.current_wave = 0
         self.shield = False
 
@@ -57,8 +57,9 @@ class game:
                 self.item_gen.update()
 
             # acabaram os inimigos na wave 
-            if not self.enemy_group:
+            if not self.enemy_group and self.in_wave:
                     self.in_wave = False
+                    self.money += 5
 
             #player morreu
             if self.hp <= 0:
@@ -86,12 +87,6 @@ class game:
                 # spawna próxima wave de inimigos
                 if command.type == pygame.KEYDOWN and command.key == pygame.K_SPACE and not self.in_wave:
                     self.start_wave(self.current_wave)
-                    
-                
-                # limpa a tela de coletaveis
-                if command.type == pygame.KEYDOWN and command.key == pygame.K_c:
-                    
-                    self.dropped_items_group = pygame.sprite.Group()
 
                 
                 # comandos para colocar defesas
@@ -105,16 +100,21 @@ class game:
                     too_close_to_path = point_near_path(pos, self.mapa.waypoints)
 
                     if can_place and not too_close_to_path:
-                        if command.key == pygame.K_1:
+                        if command.key == pygame.K_1 and self.money>= 3:
                             def_type1(self, pos)
-                        elif command.key == pygame.K_2:
+                            self.money -= 3
+                        elif command.key == pygame.K_2 and self.money>= 7:
                             def_type2(self, pos)
-                        elif command.key == pygame.K_3:
+                            self.money -= 7
+                        elif command.key == pygame.K_3 and self.money>= 7:
                             def_type3(self, pos)
-                        elif command.key == pygame.K_4:
+                            self.money -= 7
+                        elif command.key == pygame.K_4 and self.money>= 5:
                             def_type4(self, pos)
-                        elif command.key == pygame.K_5:
+                            self.money -= 5
+                        elif command.key == pygame.K_5 and self.money>= 6:
                             def_type5(self, pos)
+                            self.money -= 6
                         
                     
              
@@ -164,7 +164,7 @@ class game:
             self.screen.blit(pygame.image.load('Assets/game_over.png').convert_alpha(),(0,0))
         # tela de vitoria
         elif self.win:
-            self.screen.blit(pygame.transform.scale(pygame.image.load('Assets/enemy1.png'), (1080,720)),(0,0)) # ainda ta usando a tela de game over
+            self.screen.blit(pygame.transform.scale(pygame.image.load('Assets/win_screen.png'), (1080,720)),(0,0))
         else:
 
 

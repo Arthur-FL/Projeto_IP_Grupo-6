@@ -53,7 +53,11 @@ class Enemy(pygame.sprite.Sprite):
         if self.final:
             for group in self.groups:
                 group.remove(self)
-            self.game.hp -= self.dano
+
+            if not self.game.shield:
+                self.game.hp -= self.dano
+            self.game.shield = False
+
 
 
         if self.on_fire:
@@ -118,27 +122,39 @@ class enem_type3(Enemy):
     def __init__(self, game):
         super().__init__(game)
         
-        self.speed = 10
+        self.speed = 8
         self.hp = 40
         self.dano = 1
         self.image = pygame.image.load('Assets/inimigo3.png').convert_alpha()
   
 
-class enem_type4(Enemy): # WIP
+class enem_type4(Enemy): # MOOOOOOAAAAAABBBB YEAAAAAAAAAAAA
     def __init__(self, game):
         super().__init__(game)
 
         self.speed = 2
-        self.hp = 250
-        self.dano = 10
+        self.hp = 1000
+        self.dano = 20
         self.image = pygame.image.load('Assets/enemy1.png').convert_alpha()
 
     def drop(self):
         coin(self.game, self.pos)
 
-        enem_type1(self.game)
-        enem_type2(self.game)
-        enem_type3(self.game)
+        spawn1 = enem_type1(self.game)
+        spawn1.pos = self.pos.copy()
+        spawn1.target_waypoint = self.target_waypoint
+        spawn2 = enem_type2(self.game)
+        spawn2.pos = self.pos.copy()
+        spawn2.target_waypoint = self.target_waypoint
+        spawn3 = enem_type3(self.game)
+        spawn3.pos = self.pos.copy()
+        spawn3.target_waypoint = self.target_waypoint
+        spawn4 = enem_type1(self.game)
+        spawn4.pos = self.pos.copy()
+        spawn4.target_waypoint = self.target_waypoint
+        spawn5 = enem_type1(self.game)
+        spawn5.pos = self.pos.copy()
+        spawn5.target_waypoint = self.target_waypoint
     
         for group in self.groups:
             group.remove(self)
@@ -146,7 +162,7 @@ class enem_type4(Enemy): # WIP
             
 
 
-class enem_type5(Enemy): # WIP
+class enem_type5(Enemy): # MOAB PART 2
     def __init__(self, game):
         super().__init__(game)
 
