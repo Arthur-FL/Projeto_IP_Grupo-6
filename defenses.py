@@ -37,8 +37,6 @@ class defense(pygame.sprite.Sprite):
                                 if dist <= self.range:
                                         self.shoot(enemy)
                                         self.cooldown = 1000
-                                        enemy.vida -= self.dano
-                                        self.cooldown = 100
                                         break
                 else:
                         self.cooldown -= self.fire_rate 
