@@ -35,6 +35,8 @@ class defense(pygame.sprite.Sprite):
                                 dist = vector.length()
 
                                 if dist <= self.range:
+                                        self.shoot(enemy)
+                                        self.cooldown = 1000
                                         enemy.vida -= self.dano
                                         self.cooldown = 100
                                         break
@@ -61,6 +63,7 @@ class def_type1(defense):
                 self.fire_rate = 18
                 self.dano = 30
                 self.range = 175
+                self.cost = 0
                 self.animation_delay = 100
 
         def load_images(self):
