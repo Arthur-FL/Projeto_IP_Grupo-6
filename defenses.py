@@ -23,7 +23,7 @@ class defense(pygame.sprite.Sprite):
                 self.cost = 0
                 
                 
-                self.cooldown = 100
+                self.cooldown = 1000
 
         def update(self):
                 
@@ -40,6 +40,9 @@ class defense(pygame.sprite.Sprite):
                                         break
                 else:
                         self.cooldown -= self.fire_rate 
+        
+        def shoot(self, enemy):
+                enemy.hp -= self.dano
 
 
 class def_type1(defense):
