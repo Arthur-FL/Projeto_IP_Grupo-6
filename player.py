@@ -21,20 +21,20 @@ class player(pygame.sprite.Sprite):
         
 
         def update(self):
+                
                 keys = pygame.key.get_pressed()
 
-                if keys[pygame.K_w] and self.pos.y > 0:
-                    self.pos.y -= self.speed
-                if keys[pygame.K_a] and self.pos.x > 0:
-                    self.pos.x -= self.speed
-                if keys[pygame.K_s] and self.pos.y < 720:
-                    self.pos.y += self.speed
-                if keys[pygame.K_d] and self.pos.x < 1080:
-                    self.pos.x += self.speed
+                if keys[pygame.K_w] and self.pos[1]> 0:
+                        self.pos[1] -= self.speed
+                if keys[pygame.K_a] and self.pos[0]> 0:
+                        self.pos[0] -= self.speed
+                if keys[pygame.K_s] and self.pos[1]< 720:
+                        self.pos[1] += self.speed
+                if keys[pygame.K_d] and self.pos[0]< 1080 :
+                        self.pos[0] += self.speed
 
-                # Atualiza a posição do rect para refletir a posição do jogador
+                
                 self.rect.center = self.pos
- 
 
 
 

@@ -10,7 +10,7 @@ class defense(pygame.sprite.Sprite):
                 pygame.sprite.Sprite.__init__(self, self.groups)
 
 
-                self.image = pygame.transform.scale(pygame.image.load('Assets/enemy1.png'), (50,50))
+                self.image = pygame.transform.scale(pygame.image.load('Assets/enemy1.png'), (60,60))
                 self.pos = Vector2(pos)
                 self.rect = self.image.get_rect()
                 self.rect.center = self.pos
@@ -18,7 +18,7 @@ class defense(pygame.sprite.Sprite):
 
                 #atributos diferentes nas torres
                 self.fire_rate = 1
-                self.dano = 1
+                self.dano = 1 #dano ou tipo de projetil
                 self.range = 1
                 self.cost = 0
                 
