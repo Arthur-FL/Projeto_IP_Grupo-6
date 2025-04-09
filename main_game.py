@@ -50,10 +50,20 @@ class game:
 
         self.player = player(self)
 
+
+
         
 
     def update(self):
+        self.defesas = [str(type(i)) for i in self.defense_group.sprites()]
+        self.custos = {1: 5 + 2*self.defesas.count("<class 'defenses.def_type1'>"),
+                       2: 9 + 5*self.defesas.count("<class 'defenses.def_type2'>"),
+                       3: 10 + 5*self.defesas.count("<class 'defenses.def_type3'>"),
+                       4: 7 + 7*self.defesas.count("<class 'defenses.def_type4'>"),
+                       5: 12 + 6*self.defesas.count("<class 'defenses.def_type5'>")}
         
+        
+
         if not self.paused:
             
             self.all_sprites_group.update()
@@ -69,7 +79,7 @@ class game:
             # novo spawn das waves
             if self.in_wave:
                 if pygame.time.get_ticks() - self.last_spawn > self.spawn_cooldown:
-                    
+
                     enemy_type = self.current_enemies[self.enemy_index]
                     self.last_spawn = pygame.time.get_ticks()
                     self.enemy_index += 1
@@ -82,7 +92,7 @@ class game:
                         pass
                     if enemy_type == 1:
                         enem_type1(self)
-                        self.spawn_cooldown = 500
+                        self.spawn_cooldown = 500                                                               
                         
                     elif enemy_type == 2:
                         enem_type2(self)
@@ -135,21 +145,21 @@ class game:
                     too_close_to_path = point_near_path(pos, self.mapa.waypoints)
 
                     if can_place and not too_close_to_path:
-                        if command.key == pygame.K_1 and self.money>= 3:
+                        if command.key == pygame.K_1 and self.money>= self.custos[1]:
                             def_type1(self, pos)
-                            self.money -= 3
-                        elif command.key == pygame.K_2 and self.money>= 7:
+                            self.money -= self.custos[1]
+                        elif command.key == pygame.K_2 and self.money>= self.custos[2]:
                             def_type2(self, pos)
-                            self.money -= 7
-                        elif command.key == pygame.K_3 and self.money>= 7:
+                            self.money -= self.custos[1]
+                        elif command.key == pygame.K_3 and self.money>= self.custos[3]:
                             def_type3(self, pos)
-                            self.money -= 7
-                        elif command.key == pygame.K_4 and self.money>= 5:
+                            self.money -= self.custos[3]
+                        elif command.key == pygame.K_4 and self.money>= self.custos[4]:
                             def_type4(self, pos)
-                            self.money -= 5
-                        elif command.key == pygame.K_5 and self.money>= 6:
+                            self.money -= self.custos[4]
+                        elif command.key == pygame.K_5 and self.money>= self.custos[5]:
                             def_type5(self, pos)
-                            self.money -= 6
+                            self.money -= self.custos[5]
                         
                     
              
@@ -183,65 +193,82 @@ class game:
 
 
             # desenha o jogo quando n ta pausado
-            if not self.paused:
-                background = pygame.transform.scale(self.mapa.imagem, (1080, 720))
-                screen.blit(background, (0, 0))
             
-                # desenha os objetos do jogo
-                self.enemy_group.draw(screen) 
-                self.defense_group.draw(screen)
-                self.dropped_items_group.draw(screen)
-                self.projectile_group.draw(screen)
-                self.HUD_elements_group.draw(screen)
-                self.player_group.draw(screen)
+            background = pygame.transform.scale(self.mapa.imagem, (1080, 720))
+            screen.blit(background, (0, 0))
+        
+            # desenha os objetos do jogo
+            self.enemy_group.draw(screen) 
+            self.defense_group.draw(screen)
+            self.dropped_items_group.draw(screen)
+            self.projectile_group.draw(screen)
+            self.HUD_elements_group.draw(screen)
+            self.player_group.draw(screen)
 
-                # HUD vida, talves mover isso pra uma classe de HUD (??)
-                screen.blit(self.fonte.render(str(self.hp), True, (255, 255, 255)), (980, 0))
-                screen.blit(pygame.image.load('Assets/heart.png').convert_alpha(), (920,7))
-                if self.shield:
-                     screen.blit(pygame.transform.scale(pygame.image.load('Assets/shield.png'), (60,60)), (855,0))
+            # HUD vida, talves mover isso pra uma classe de HUD (??)
+            screen.blit(self.fonte.render(str(self.hp), True, (255, 255, 255)), (980, 0))
+            screen.blit(pygame.image.load('Assets/heart.png').convert_alpha(), (920,7))
+            if self.shield:
+                    screen.blit(pygame.transform.scale(pygame.image.load('Assets/shield.png'), (60,60)), (855,0))
 
-                #hud moeda
-                screen.blit(self.fonte.render(str(self.money), True, (255, 255, 255)), (980, 50))
-                screen.blit( pygame.transform.scale(pygame.image.load('Assets/coin.png'), (50,50)), (920,57))
-                #numero de waves
-                screen.blit(self.fonte.render(str(self.current_wave), True, (255, 255, 255)), (980, 120))
-                screen.blit( pygame.transform.scale(pygame.image.load('Assets/enemy1.png'), (50,50)), (920,127))
+            #hud moeda
+            screen.blit(self.fonte.render(str(self.money), True, (255, 255, 255)), (980, 50))
+            screen.blit( pygame.transform.scale(pygame.image.load('Assets/coin.png'), (50,50)), (920,57))
+            #numero de waves
+            screen.blit(self.fonte.render(str(self.current_wave), True, (255, 255, 255)), (980, 120))
+            screen.blit( pygame.transform.scale(pygame.image.load('Assets/enemy1.png'), (50,50)), (920,127))
+            #preços
+            screen.blit(self.fonte.render(str(self.custos[1]), True, (255, 255, 255)), (50, 650 ))
+            screen.blit(self.fonte.render(str(self.custos[2]), True, (255, 255, 255)), (125, 650 ))
+            screen.blit(self.fonte.render(str(self.custos[3]), True, (255, 255, 255)), (200, 650 ))
+            screen.blit(self.fonte.render(str(self.custos[4]), True, (255, 255, 255)), (275, 650 ))
+            screen.blit(self.fonte.render(str(self.custos[5]), True, (255, 255, 255)), (350, 650 ))
 
 
-                # debug view
-                if self.debug_view:
-                    # atributos das defesas
-                    for tower in self.defense_group:
-                        pos = tower.pos.copy()
-                        pos[0] -= 25
-                        pos[1] -= 110
-                        pygame.draw.circle(screen, 'black', tower.pos , tower.range - 20, 3)
-                        screen.blit(self.fonte.render(str(tower.cooldown), True, (255, 255, 255)), pos)
 
-                    # vida dos inimigos
-                    for enemy in self.enemy_group:
-                        pos = enemy.pos.copy()
-                        pos[0] -= 25
-                        pos[1] -= 110
-                        screen.blit(self.fonte.render(str(enemy.hp), True, (255, 255, 255)), pos)
+            # debug view
+            if self.debug_view:
+                # atributos das defesas
+                for tower in self.defense_group:
+                    pos = tower.pos.copy()
+                    pos[0] -= 25
+                    pos[1] -= 110
+                    pygame.draw.circle(screen, 'black', tower.pos , tower.range - 20, 3)
+                    screen.blit(self.fonte.render(str(tower.cooldown), True, (255, 255, 255)), pos)
 
-                    # caminho 
-                    pygame.draw.lines(screen, 'white', False, self.mapa.waypoints)
+                # vida dos inimigos
+                for enemy in self.enemy_group:
+                    pos = enemy.pos.copy()
+                    pos[0] -= 25
+                    pos[1] -= 110
+                    screen.blit(self.fonte.render(str(round(enemy.hp)), True, (255, 255, 255)), pos)
+
+                # caminho 
+                pygame.draw.lines(screen, 'white', False, self.mapa.waypoints)
+
+                #fds dos projeteis
+                for shot in self.projectile_group:
+                    pos = shot.pos.copy()
+                    pos[0] -= 25                                                    
+                    pos[1] -= 110
+                    screen.blit(self.fonte.render(str(shot.pierce), True, (255, 255, 255)), pos)
+                       
+                        
+
 
 
 
                 #HUD imagem de debug pra ver se tem uma wave ta acontecendo
-                if self.in_wave:
-                    screen.blit(pygame.image.load('Assets/enemy1.webp').convert_alpha(), (810, 7))
+                #if self.in_wave:
+                    #screen.blit(pygame.image.load('Assets/enemy1.webp').convert_alpha(), (810, 7))
 
             
             
 
 
             # desenha tela de pause
-            else:
-                tela_pause = pygame.transform.scale(self.mapa.imagem, (1080, 720))
+            if self.paused:
+                tela_pause = pygame.image.load('Assets/pathtd.png').convert_alpha()
                 screen.blit(tela_pause, (0, 0))
         
         
