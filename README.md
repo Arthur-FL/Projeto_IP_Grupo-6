@@ -2,12 +2,12 @@
 CINgurando a Base é um jogo do estilo Tower Defense 2D desenvolvido por alunos do Centro de Informática da UFPE como projeto da disciplina de Introdução à Programação. O jogo combina movimentação do jogador, coleta de moedas e posicionamento estratégico de defesas para evitar que inimigos atinjam a base.  
 
 ## 👥 Membros da Equipe  
-- Arthur Fernandes <afol>  
-- Gabriel Rio <grtc>  
-- Janderson <jfs6>  
-- José Guilherme <jgtn>  
-- Rafael Nobrega <rdn>  
-- Wilhyã Pedro <wpn>  
+- Arthur Fernandes (afol)
+- Gabriel Rio (grtc)  
+- Janderson (jfs6)
+- José Guilherme (jgtn) 
+- Rafael Nobrega (rdn)
+- Wilhyã Pedro (wpn)
 
 ## 🏗️ Arquitetura do Projeto 
 O projeto está organizado em módulos Python, seguindo o paradigma de Orientação a Objetos. A estrutura foi pensada para manter o código modular, reutilizável e de fácil manutenção.  
