@@ -61,7 +61,7 @@ class Enemy(pygame.sprite.Sprite):
 
 
         if self.on_fire:
-            self.hp -= 0.25
+            self.hp -= 0.23
 
         if self.hp <=0:
             self.morto = True
@@ -93,8 +93,7 @@ class Enemy(pygame.sprite.Sprite):
         coin(self.game, self.pos)
     
 
-        for group in self.groups:
-            group.remove(self)
+        self.kill()
         
 
 
@@ -103,7 +102,7 @@ class enem_type1(Enemy):
         super().__init__(game)
         
         self.speed = 2.5
-        self.hp = 80
+        self.hp = 75
         self.dano = 1
         self.image = pygame.image.load('Assets/inimigo1.png').convert_alpha()
 

@@ -49,9 +49,7 @@ class health_drop(pygame.sprite.Sprite):
         #checa se o mouse passou por cima e coleta automaticamente.
         if player_collide(self, self.game.player):
             self.game.hp += 1
-            for group in self.groups:
-                group.remove(self)
-
+            self.kill()
 
 class shield_Drop(pygame.sprite.Sprite):
     def __init__(self, game, pos):
@@ -69,7 +67,6 @@ class shield_Drop(pygame.sprite.Sprite):
     def update(self):
         if player_collide(self, self.game.player):
             self.game.shield = True
-            for group in self.groups:
-                group.remove(self)
+            self.kill()
         
         

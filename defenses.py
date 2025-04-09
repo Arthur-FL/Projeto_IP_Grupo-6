@@ -1,6 +1,7 @@
 import pygame
 from pygame.math import Vector2
 from enemy import *
+from projectiles import *
 
 class defense(pygame.sprite.Sprite):
 
@@ -103,10 +104,15 @@ class def_type1(defense):
                 self.image = self.animation_list[self.frame_index] #a imagem dele estatico é o primeiro frame da folha de sprite
                 
                 self.fire_rate = 18
-                self.dano = 30
-                self.range = 175
+                self.dano = 25
+                self.range = 200
                 self.cost = 0
                 self.animation_delay = 100
+
+        def shoot(self, enemy):
+                arrow(self.game, self.pos, enemy.pos.copy())
+
+
 
 
 
@@ -124,11 +130,14 @@ class def_type2(defense): # range alto, firerate baixo
 
                 self.image = self.animation_list[self.frame_index]
 
-                self.fire_rate =  12
-                self.dano = 75
-                self.range = 250
+                self.fire_rate =  10
+                self.dano = 100
+                self.range = 325
                 self.cost = 0
 
+        def shoot(self, enemy):
+                snipe(self.game, self.pos, enemy.pos.copy())
+        
 class def_type3(defense): # range baixo, dps alto 
         def __init__(self, game, pos):
                 super().__init__(game, pos)
@@ -141,11 +150,12 @@ class def_type3(defense): # range baixo, dps alto
 
                 self.image = self.animation_list[self.frame_index]
 
-                self.fire_rate = 100
+                self.fire_rate = 90
                 self.dano = 25
                 self.range = 125
                 self.cost = 0
-
+        def shoot(self, enemy):
+                slash(self.game, self.pos, enemy.pos.copy())
 
 class def_type4(defense): # empurra os inimigos :O
         def __init__(self, game, pos):
@@ -164,30 +174,9 @@ class def_type4(defense): # empurra os inimigos :O
                 self.range = 160
                 self.cost = 0
 
-
-        def update(self):
-
-                if self.playing_animation:
-                        self.play_animation()
-                if self.cooldown <= 0:
-                        for enemy in self.game.enemy_group:
-                        
-                                vector = enemy.pos - self.pos
-                                dist = vector.length()
-
-                                if dist <= self.range:
-                                        self.playing_animation = True
-                                        self.shoot(enemy)
-                                        self.cooldown = 1000
-                                        
-                else:
-                        self.cooldown -= self.fire_rate 
-
                 
         def shoot(self,enemy):
-                if type(enemy) != 'enem_type4':
-                        enemy.target_waypoint = max(0, enemy.target_waypoint - 2)
-                enemy.hp -= self.dano
+                push_shot(self.game, self.pos, enemy.pos.copy())
 
 
    
@@ -211,7 +200,7 @@ class def_type5(defense): # taca fogo nos inimigos sla
                 self.cost = 0
 
         def shoot(self,enemy):
-                enemy.on_fire = True
+                fire_shot(self.game, self.pos, enemy.pos.copy())
 
 
 
