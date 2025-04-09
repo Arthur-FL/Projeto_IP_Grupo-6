@@ -27,12 +27,16 @@ class game:
         # condicionais pro estado atual do jogo
         self.paused = False
         self.running = False
-        self.in_menu = False
-        self.in_pause_menu = False
         self.in_wave = False
         self.game_over = False
         self.win = False
         self.debug_view = False
+
+        # variaveis de spawn de inimigos
+        self.spawn_cooldown = 500
+        self.last_spawn = 0
+        self.current_enemies = []
+        self.enemy_index = 0
         
 
         # mapa 
@@ -45,6 +49,7 @@ class game:
         self.shield = False
 
         self.player = player(self)
+
         
 
     def update(self):
@@ -53,17 +58,47 @@ class game:
             
             self.all_sprites_group.update()
             
-            if self.in_wave:
+            if self.enemy_group:
                 self.item_gen.update()
-
-            # acabaram os inimigos na wave 
-            if not self.enemy_group and self.in_wave:
-                    self.in_wave = False
-                    self.money += 5
 
             #player morreu
             if self.hp <= 0:
                 self.game_over = True 
+
+
+            # novo spawn das waves
+            if self.in_wave:
+                if pygame.time.get_ticks() - self.last_spawn > self.spawn_cooldown:
+                    
+                    enemy_type = self.current_enemies[self.enemy_index]
+                    self.last_spawn = pygame.time.get_ticks()
+                    self.enemy_index += 1
+
+                    if self.enemy_index >= len(self.current_enemies):
+                        self.enemy_index = 0
+                        self.in_wave = False
+                        
+                    if enemy_type == '':
+                        pass
+                    if enemy_type == 1:
+                        enem_type1(self)
+                        self.spawn_cooldown = 500
+                        
+                    elif enemy_type == 2:
+                        enem_type2(self)
+                        self.spawn_cooldown = 500
+                
+                    elif enemy_type == 3:
+                        enem_type3(self)
+                        self.spawn_cooldown = 100
+
+                    elif enemy_type == 4:
+                        enem_type4(self)
+                        self.spawn_cooldown = 500
+
+                    elif enemy_type == 5:
+                        enem_type5(self)
+                        self.spawn_cooldown = 500
        
     def comandos(self):
         
@@ -83,10 +118,10 @@ class game:
 
             
             #comandos dentro do jogo(não funcionam se estiver em um menu/jogo pausado)
-            if not self.paused and not self.in_menu:
+            if not self.paused:
                 # spawna próxima wave de inimigos
                 if command.type == pygame.KEYDOWN and command.key == pygame.K_SPACE and not self.in_wave:
-                    self.start_wave(self.current_wave)
+                    self.start_wave()
 
                 
                 # comandos para colocar defesas
@@ -121,37 +156,15 @@ class game:
                 if command.type in [pygame.KEYDOWN, pygame.KEYUP] and command.key == pygame.K_TAB:
                     self.debug_view = not self.debug_view
                     
-    def start_wave(self, wave):
+    def start_wave(self):
         self.in_wave = True
         
-        if wave < len(self.mapa.waves):
+        
+        if self.current_wave < len(self.mapa.waves):
+            self.current_enemies =  self.mapa.waves[self.current_wave]
+            
             self.current_wave += 1
-            new_enemies = self.mapa.waves[wave] # lista com os tipos de inimigos q precisa spawnar na wave 
             
-            for enemy_type in new_enemies:
-                if enemy_type == '':
-                    pass
-                if enemy_type == 1:
-                    enem_type1(self)
-                    
-                elif enemy_type == 2:
-                    enem_type2(self)
-            
-                elif enemy_type == 3:
-                    enem_type3(self)
-
-                elif enemy_type == 4:
-                    enem_type4(self)
-
-                elif enemy_type == 5:
-                    enem_type5(self)
-
-                    
-
-                
-                # da tempo dps de spawnar um inimigo <------- n ta funcionando bom 
-                for _ in range(5):
-                    self.enemy_group.update() 
         else:
             self.win = True
 
@@ -219,8 +232,8 @@ class game:
 
 
                 #HUD imagem de debug pra ver se tem uma wave ta acontecendo
-                #if self.in_wave:
-                   # screen.blit(pygame.image.load('Assets/enemy1.webp').convert_alpha(), (810, 7))
+                if self.in_wave:
+                    screen.blit(pygame.image.load('Assets/enemy1.webp').convert_alpha(), (810, 7))
 
             
             
