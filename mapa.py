@@ -3,9 +3,9 @@ import pygame
 
 class map:
     def __init__(self):
-        self.waypoints = [(-450,360), (-100,360), (175, 360), (175, 160), (390, 160), (390, 440), (680, 440), (680, 300), (1131, 300)]
+        self.waypoints = [(-450,360), (-100, 360), (0, 360), (175, 360), (175, 160), (390, 160), (390, 440), (680, 440), (680, 300), (1131, 300)]
         self.imagem = pygame.image.load('Assets/pathtd.png').convert_alpha()
-        self.waves = [[1], # wave 1
+        self.waves = [[1, '', ], # wave 1
                       [1,1], # wave 2
                       [1,2], # wave 3
                       [1,2,2,2,1], # wave 4

@@ -39,7 +39,7 @@ class defense(pygame.sprite.Sprite):
 
 
                 if self.playing_animation:
-                        self.play_animation
+                        self.play_animation()
                 
 
 
@@ -109,33 +109,6 @@ class def_type1(defense):
                 self.animation_delay = 100
 
 
-
-
-        def load_images(self):
-                #pega cada imagem da sequencia de imagens
-                frame_width = self.sprite_sheet.get_width() // 5 #288
-                frame_height = self.sprite_sheet.get_height() # 300
-                animation_list = []
-
-                for x in range(5): #quantidade de passos que tem na imagem
-                    temp_img = self.sprite_sheet.subsurface((x * frame_width, 0, frame_width, frame_height))
-                    animation_list.append(temp_img)
-
-                return animation_list
-        
-        def update(self):
-                self.play_animation()
-        
-        def play_animation(self):
-                #atualizar imagens
-                self.image = self.animation_list[self.frame_index]
-                #checa se passou tempo o suficiente desde a ultima atualização
-                if pygame.time.get_ticks() - self.update_time > self.animation_delay:
-                        self.update_time = pygame.time.get_ticks()
-                        self.frame_index += 1
-                        #ve se a animação e reseta
-                        if self.frame_index >= len(self.animation_list):
-                                self.frame_index = 0
 
 
 
