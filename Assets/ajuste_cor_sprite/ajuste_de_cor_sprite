@@ -1,0 +1,33 @@
+from PIL import Image
+import numpy as np
+import colorsys
+
+image_path = "/fox_warrior_left.png"
+img = Image.open(image_path).convert("RGBA")
+# Converter imagem para numpy array
+arr = np.array(img)
+
+# Separar os canais
+r, g, b, a = arr[..., 0], arr[..., 1], arr[..., 2], arr[..., 3]
+
+# Definir uma máscara para a roupa (baseado na cor original da roupa: verde escuro)
+# Exemplo: selecionar pixels com tons entre verde/marrom
+clothing_mask = (
+    (r > 40) & (r < 100) &
+    (g > 60) & (g < 130) &
+    (b > 30) & (b < 90)
+)
+
+# Alterar apenas os pixels da roupa para tons de vermelho
+arr[clothing_mask, 0] = 200  # Red
+arr[clothing_mask, 1] = 30   # Green
+arr[clothing_mask, 2] = 30   # Blue
+
+# Converter de volta para imagem
+red_clothing_img = Image.fromarray(arr, 'RGBA')
+
+# Salvar imagem com roupa vermelha
+output_red_path = "/fox_warrior_left_red.png"
+red_clothing_img.save(output_red_path)
+
+output_red_path
