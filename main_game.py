@@ -7,6 +7,7 @@ class game:
     def __init__(self):
         pygame.init()
         self.screen = pygame.display.set_mode([1080, 720])
+        self.title = pygame.display.set_caption('CINgurando a base')
         self.fonte = pygame.font.SysFont('Arial', 55)
 
 

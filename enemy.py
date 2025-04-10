@@ -104,7 +104,7 @@ class enem_type1(Enemy):
         self.speed = 2.5
         self.hp = 75
         self.dano = 1
-        self.image = pygame.image.load('Assets/inimigo1.png').convert_alpha()
+        self.image = pygame.image.load('Assets/Green_evil_eye_tp.png.png').convert_alpha()
 
   
 class enem_type2(Enemy):
@@ -114,7 +114,7 @@ class enem_type2(Enemy):
         self.speed = 2
         self.hp = 150
         self.dano = 3
-        self.image = pygame.image.load('Assets/inimigo2.png').convert_alpha()
+        self.image = pygame.image.load('Assets/Red_evil_eye_tp.png.png').convert_alpha()
 
 
 class enem_type3(Enemy):
@@ -124,7 +124,7 @@ class enem_type3(Enemy):
         self.speed = 8
         self.hp = 40
         self.dano = 1
-        self.image = pygame.image.load('Assets/inimigo3.png').convert_alpha()
+        self.image = pygame.image.load('Assets/Blue_evil_eye_tp.png.png').convert_alpha()
   
 
 class enem_type4(Enemy): # MOOOOOOAAAAAABBBB YEAAAAAAAAAAAA
@@ -134,7 +134,7 @@ class enem_type4(Enemy): # MOOOOOOAAAAAABBBB YEAAAAAAAAAAAA
         self.speed = 2
         self.hp = 1000
         self.dano = 20
-        self.image = pygame.image.load('Assets/enemy1.png').convert_alpha()
+        self.image = pygame.image.load('Assets/Cthulhu_eye_base_tp.png.png').convert_alpha()
 
     def drop(self):
         coin(self.game, self.pos)
@@ -168,4 +168,4 @@ class enem_type5(Enemy): # MOAB PART 2
         self.speed = 1
         self.hp = 1
         self.dano = 1
-        self.image = pygame.image.load('Assets/inimigo3.png').convert_alpha()
+        self.image = pygame.image.load('Assets/Cthulhu_eye_tp.png.png').convert_alpha()
