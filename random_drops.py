@@ -6,7 +6,7 @@ class drop_generator:
 
     def __init__(self, game):
         self.game = game
-        self.timer = random.randint(300, 600)
+        self.timer = random.randint(500, 1000)
 
 
     def update(self):
@@ -25,7 +25,7 @@ class drop_generator:
                 health_drop(self.game, pos)
 
             # reseta o timer
-            self.timer = random.randint(300, 600)
+            self.timer = random.randint(500, 1000)
 
         
 

@@ -102,7 +102,7 @@ class enem_type1(Enemy):
         super().__init__(game)
         
         self.speed = 2.5
-        self.hp = 75
+        self.hp = 100
         self.dano = 1
         self.image = pygame.image.load('Assets/Green_evil_eye_tp.png.png').convert_alpha()
 
@@ -112,7 +112,7 @@ class enem_type2(Enemy):
         super().__init__(game)
         
         self.speed = 2
-        self.hp = 150
+        self.hp = 180
         self.dano = 3
         self.image = pygame.image.load('Assets/Red_evil_eye_tp.png.png').convert_alpha()
 
@@ -166,6 +166,13 @@ class enem_type5(Enemy): # MOAB PART 2
         super().__init__(game)
 
         self.speed = 1
-        self.hp = 1
-        self.dano = 1
+        self.hp = 5000
+        self.dano = 20
         self.image = pygame.image.load('Assets/Cthulhu_eye_tp.png.png').convert_alpha()
+
+        spawn1 = enem_type4(self.game)
+        spawn1.pos = self.pos.copy()
+        spawn1.target_waypoint = self.target_waypoint
+        spawn2 = enem_type4(self.game)
+        spawn2.pos = self.pos.copy()
+        spawn2.target_waypoint = self.target_waypoint

@@ -95,7 +95,7 @@ class def_type1(defense):
                 super().__init__(game, pos)
 
                 #animação
-                self.sprite_sheet = pygame.image.load('Assets/raposa_esquerda1.png').convert_alpha()
+                self.sprite_sheet = pygame.image.load('Assets/fox_archer_left_red.png').convert_alpha()
                 self.animation_list = self.load_images()
                 self.frame_index = 0
                 self.update_time = pygame.time.get_ticks()
@@ -104,9 +104,7 @@ class def_type1(defense):
                 self.image = self.animation_list[self.frame_index] #a imagem dele estatico é o primeiro frame da folha de sprite
                 
                 self.fire_rate = 18
-                self.dano = 25
                 self.range = 200
-                self.cost = 0
                 self.animation_delay = 100
 
         def shoot(self, enemy):
@@ -131,9 +129,7 @@ class def_type2(defense): # range alto, firerate baixo
                 self.image = self.animation_list[self.frame_index]
 
                 self.fire_rate =  10
-                self.dano = 100
                 self.range = 325
-                self.cost = 0
 
         def shoot(self, enemy):
                 snipe(self.game, self.pos, enemy.pos.copy())
@@ -142,7 +138,7 @@ class def_type3(defense): # range baixo, dps alto
         def __init__(self, game, pos):
                 super().__init__(game, pos)
 
-                self.sprite_sheet = pygame.image.load('Assets/raposa_esquerda1.png').convert_alpha()
+                self.sprite_sheet = pygame.image.load('Assets/fox_warrior_red_edit.png').convert_alpha()
                 self.animation_list = self.load_images()
                 self.frame_index = 0
                 self.update_time = pygame.time.get_ticks()
@@ -150,10 +146,8 @@ class def_type3(defense): # range baixo, dps alto
 
                 self.image = self.animation_list[self.frame_index]
 
-                self.fire_rate = 90
-                self.dano = 25
+                self.fire_rate = 80
                 self.range = 125
-                self.cost = 0
         def shoot(self, enemy):
                 slash(self.game, self.pos, enemy.pos.copy())
 
@@ -168,11 +162,8 @@ class def_type4(defense): # empurra os inimigos :O
                 
 
                 self.image = self.animation_list[self.frame_index]
-
                 self.fire_rate = 3
-                self.dano = 10
                 self.range = 160
-                self.cost = 0
 
                 
         def shoot(self,enemy):
@@ -193,11 +184,9 @@ class def_type5(defense): # taca fogo nos inimigos sla
                 
 
                 self.image = self.animation_list[self.frame_index]
-
                 self.fire_rate = 10
-                self.dano = 0
                 self.range = 150
-                self.cost = 0
+                
 
         def shoot(self,enemy):
                 fire_shot(self.game, self.pos, enemy.pos.copy())

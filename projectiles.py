@@ -46,6 +46,7 @@ class projectile(pygame.sprite.Sprite):
                 self.hit_list.append(enemy)
             if self.pierce <= 0:
                 self.kill()
+                break
 
         self.life_time -= 1
         if self.life_time <= 0:
@@ -65,7 +66,7 @@ class arrow(projectile):
         
         self.speed = 10
         self.pierce = 2
-        self.dano = 25
+        self.dano = 35
         self.image = pygame.image.load('Assets/arrow.png').convert_alpha()
         self.rotate()
 
@@ -84,7 +85,7 @@ class slash(projectile):
         super().__init__(game, pos, target)
         
         self.speed = 0
-        self.pierce = 5
+        self.pierce = 3
         self.dano = 10
         self.image = pygame.image.load('Assets/slash.png').convert_alpha()
         self.rotate()
@@ -111,7 +112,7 @@ class push_shot(projectile):
         for enemy in collisions:
             if enemy not in self.hit_list:
                 enemy.hp -= self.dano
-                if type(enemy) != 'enem_type4':
+                if str(type(enemy)) != "<class 'enemy.enem_type4'>" and str(type(enemy)) != "<class 'enemy.enem_type5'>":
                     enemy.target_waypoint = max(0, enemy.target_waypoint - 2)
                 self.pierce -= 1
                 self.hit_list.append(enemy)

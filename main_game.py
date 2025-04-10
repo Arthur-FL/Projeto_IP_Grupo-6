@@ -1,4 +1,5 @@
 import pygame
+from defenses import *
 from enemy import *
 from mapa import *
 from random_drops import *
@@ -44,8 +45,8 @@ class game:
         self.mapa = map()
 
         ##
-        self.hp = 25
-        self.money = 5
+        self.hp = 10
+        self.money = 9
         self.current_wave = 0
         self.shield = False
 
@@ -57,11 +58,11 @@ class game:
 
     def update(self):
         self.defesas = [str(type(i)) for i in self.defense_group.sprites()]
-        self.custos = {1: 5 + 2*self.defesas.count("<class 'defenses.def_type1'>"),
-                       2: 9 + 5*self.defesas.count("<class 'defenses.def_type2'>"),
-                       3: 10 + 5*self.defesas.count("<class 'defenses.def_type3'>"),
-                       4: 7 + 7*self.defesas.count("<class 'defenses.def_type4'>"),
-                       5: 12 + 6*self.defesas.count("<class 'defenses.def_type5'>")}
+        self.custos = {1: 6 + 5*self.defesas.count("<class 'defenses.def_type1'>"), # Básico
+                       2: 11 + 10*self.defesas.count("<class 'defenses.def_type2'>"), # KN
+                       3: 12 + 12*self.defesas.count("<class 'defenses.def_type3'>"), # Corpo a corpo
+                       4: 9 + 14*self.defesas.count("<class 'defenses.def_type4'>"), # Empurra
+                       5: 14 + 12*self.defesas.count("<class 'defenses.def_type5'>")} # Fogo
         
         
 
@@ -219,11 +220,13 @@ class game:
             screen.blit(self.fonte.render(str(self.current_wave), True, (255, 255, 255)), (980, 120))
             screen.blit( pygame.transform.scale(pygame.image.load('Assets/enemy1.png'), (50,50)), (920,127))
             #preços
-            screen.blit(self.fonte.render(str(self.custos[1]), True, (255, 255, 255)), (50, 650 ))
-            screen.blit(self.fonte.render(str(self.custos[2]), True, (255, 255, 255)), (125, 650 ))
-            screen.blit(self.fonte.render(str(self.custos[3]), True, (255, 255, 255)), (200, 650 ))
-            screen.blit(self.fonte.render(str(self.custos[4]), True, (255, 255, 255)), (275, 650 ))
-            screen.blit(self.fonte.render(str(self.custos[5]), True, (255, 255, 255)), (350, 650 ))
+            screen.blit(pygame.image.load('Assets/menu_defesas.png'), (0, 620))
+            screen.blit(self.fonte.render(str(self.custos[1]), True, (255, 255, 255) if self.custos[1]<= self.money else (255,0,0)), (90, 640 ))
+            screen.blit(pygame.transform.scale(pygame.image.load('Assets/coin.png'), (50,50)), (110, 650))
+            screen.blit(self.fonte.render(str(self.custos[2]), True, (255, 255, 255) if self.custos[2]<= self.money else (255,0,0)), (220, 640 ))
+            screen.blit(self.fonte.render(str(self.custos[3]), True, (255, 255, 255) if self.custos[3]<= self.money else (255,0,0)), (360, 640 ))
+            screen.blit(self.fonte.render(str(self.custos[4]), True, (255, 255, 255) if self.custos[4]<= self.money else (255,0,0)), (480, 640 ))
+            screen.blit(self.fonte.render(str(self.custos[5]), True, (255, 255, 255) if self.custos[5]<= self.money else (255,0,0)), (600, 640 ))
 
 
 
