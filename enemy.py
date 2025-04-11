@@ -61,7 +61,7 @@ class Enemy(pygame.sprite.Sprite):
 
 
         if self.on_fire:
-            self.hp -= 0.23
+            self.hp -= 0.3
 
         if self.hp <=0:
             self.morto = True
@@ -123,7 +123,7 @@ class enem_type3(Enemy):
         
         self.speed = 8
         self.hp = 40
-        self.dano = 1
+        self.dano = 2
         self.image = pygame.image.load('Assets/Blue_evil_eye_tp.png.png').convert_alpha()
   
 
@@ -137,6 +137,7 @@ class enem_type4(Enemy): # MOOOOOOAAAAAABBBB YEAAAAAAAAAAAA
         self.image = pygame.image.load('Assets/Cthulhu_eye_base_tp.png.png').convert_alpha()
 
     def drop(self):
+        coin(self.game, self.pos)
         coin(self.game, self.pos)
 
         spawn1 = enem_type1(self.game)
@@ -166,13 +167,20 @@ class enem_type5(Enemy): # MOAB PART 2
         super().__init__(game)
 
         self.speed = 1
-        self.hp = 5000
+        self.hp = 3500
         self.dano = 20
         self.image = pygame.image.load('Assets/Cthulhu_eye_tp.png.png').convert_alpha()
-
+        
+    def drop(self):
+        coin(self.game, self.pos)
+        coin(self.game, self.pos)
+        coin(self.game, self.pos)
+        coin(self.game, self.pos)
+        coin(self.game, self.pos)
         spawn1 = enem_type4(self.game)
         spawn1.pos = self.pos.copy()
         spawn1.target_waypoint = self.target_waypoint
         spawn2 = enem_type4(self.game)
         spawn2.pos = self.pos.copy()
         spawn2.target_waypoint = self.target_waypoint
+        self.kill()

@@ -46,7 +46,7 @@ class game:
 
         ##
         self.hp = 10
-        self.money = 9
+        self.money = 7
         self.current_wave = 0
         self.shield = False
 
@@ -62,7 +62,7 @@ class game:
                        2: 11 + 10*self.defesas.count("<class 'defenses.def_type2'>"), # KN
                        3: 12 + 12*self.defesas.count("<class 'defenses.def_type3'>"), # Corpo a corpo
                        4: 9 + 14*self.defesas.count("<class 'defenses.def_type4'>"), # Empurra
-                       5: 14 + 12*self.defesas.count("<class 'defenses.def_type5'>")} # Fogo
+                       5: 35 + 25*self.defesas.count("<class 'defenses.def_type5'>")} # Fogo
         
         
 
@@ -222,12 +222,15 @@ class game:
             #preços
             screen.blit(pygame.image.load('Assets/menu_defesas.png'), (0, 620))
             screen.blit(self.fonte.render(str(self.custos[1]), True, (255, 255, 255) if self.custos[1]<= self.money else (255,0,0)), (90, 640 ))
-            screen.blit(pygame.transform.scale(pygame.image.load('Assets/coin.png'), (50,50)), (110, 650))
-            screen.blit(self.fonte.render(str(self.custos[2]), True, (255, 255, 255) if self.custos[2]<= self.money else (255,0,0)), (220, 640 ))
-            screen.blit(self.fonte.render(str(self.custos[3]), True, (255, 255, 255) if self.custos[3]<= self.money else (255,0,0)), (360, 640 ))
-            screen.blit(self.fonte.render(str(self.custos[4]), True, (255, 255, 255) if self.custos[4]<= self.money else (255,0,0)), (480, 640 ))
-            screen.blit(self.fonte.render(str(self.custos[5]), True, (255, 255, 255) if self.custos[5]<= self.money else (255,0,0)), (600, 640 ))
-
+            screen.blit(pygame.transform.scale(pygame.image.load('Assets/coin.png'), (50,50)), (130, 650))
+            screen.blit(self.fonte.render(str(self.custos[2]), True, (255, 255, 255) if self.custos[2]<= self.money else (255,0,0)), (280, 640 ))
+            screen.blit(pygame.transform.scale(pygame.image.load('Assets/coin.png'), (50,50)), (320, 650))
+            screen.blit(self.fonte.render(str(self.custos[3]), True, (255, 255, 255) if self.custos[3]<= self.money else (255,0,0)), (480, 640 ))
+            screen.blit(pygame.transform.scale(pygame.image.load('Assets/coin.png'), (50,50)), (530, 650))
+            screen.blit(self.fonte.render(str(self.custos[4]), True, (255, 255, 255) if self.custos[4]<= self.money else (255,0,0)), (660, 640 ))
+            screen.blit(pygame.transform.scale(pygame.image.load('Assets/coin.png'), (50,50)), (710, 650))
+            screen.blit(self.fonte.render(str(self.custos[5]), True, (255, 255, 255) if self.custos[5]<= self.money else (255,0,0)), (830, 640 ))
+            screen.blit(pygame.transform.scale(pygame.image.load('Assets/coin.png'), (50,50)), (880, 650))
 
 
             # debug view

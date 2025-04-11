@@ -95,7 +95,7 @@ class def_type1(defense):
                 super().__init__(game, pos)
 
                 #animação
-                self.sprite_sheet = pygame.image.load('Assets/fox_archer_left_red.png').convert_alpha()
+                self.sprite_sheet = pygame.image.load('Assets/raposa_esquerda1.png').convert_alpha()
                 self.animation_list = self.load_images()
                 self.frame_index = 0
                 self.update_time = pygame.time.get_ticks()
@@ -120,7 +120,7 @@ class def_type2(defense): # range alto, firerate baixo
         def __init__(self, game, pos):
                 super().__init__(game, pos)
 
-                self.sprite_sheet = pygame.image.load('Assets/raposa_esquerda1.png').convert_alpha()
+                self.sprite_sheet = pygame.image.load('Assets/fox_archer_left_red.png').convert_alpha()
                 self.animation_list = self.load_images()
                 self.frame_index = 0
                 self.update_time = pygame.time.get_ticks()
@@ -155,7 +155,7 @@ class def_type4(defense): # empurra os inimigos :O
         def __init__(self, game, pos):
                 super().__init__(game, pos)
 
-                self.sprite_sheet = pygame.image.load('Assets/raposa_esquerda1.png').convert_alpha()
+                self.sprite_sheet = pygame.image.load('Assets/mago_blue.png').convert_alpha()
                 self.animation_list = self.load_images()
                 self.frame_index = 0
                 self.update_time = pygame.time.get_ticks()
@@ -177,15 +177,15 @@ class def_type5(defense): # taca fogo nos inimigos sla
         def __init__(self, game, pos):
                 super().__init__(game, pos)
 
-                self.sprite_sheet = pygame.image.load('Assets/raposa_esquerda1.png').convert_alpha()
+                self.sprite_sheet = pygame.image.load('Assets/mago_red.png').convert_alpha()
                 self.animation_list = self.load_images()
                 self.frame_index = 0
                 self.update_time = pygame.time.get_ticks()
                 
 
                 self.image = self.animation_list[self.frame_index]
-                self.fire_rate = 10
-                self.range = 150
+                self.fire_rate = 15
+                self.range = 200
                 
 
         def shoot(self,enemy):

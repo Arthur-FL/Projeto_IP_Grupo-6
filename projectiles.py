@@ -76,7 +76,7 @@ class snipe(projectile):
         
         self.speed = 45
         self.pierce = 1
-        self.dano = 125
+        self.dano = 170
         self.image = pygame.image.load('Assets/arrow.png').convert_alpha()
         self.rotate()
 
@@ -86,7 +86,7 @@ class slash(projectile):
         
         self.speed = 0
         self.pierce = 3
-        self.dano = 10
+        self.dano = 12.5
         self.image = pygame.image.load('Assets/slash.png').convert_alpha()
         self.rotate()
 
@@ -99,8 +99,7 @@ class push_shot(projectile):
         self.speed = 0.25
         self.pierce = 10
         self.dano = 10
-        self.image = pygame.image.load('Assets/slash.png').convert_alpha()
-        self.rotate()
+        self.image = pygame.image.load('Assets/tornado.png').convert_alpha()
 
         self.life_time = 50
             
@@ -130,9 +129,9 @@ class fire_shot(projectile):
         super().__init__(game, pos, target)
         
         self.speed = 8
-        self.pierce = 3
-        self.dano = 10
-        self.image = pygame.image.load('Assets/fire.png').convert_alpha()
+        self.pierce = 5
+        self.dano = 15
+        self.image = pygame.image.load('Assets/fireball.png').convert_alpha()
         self.rotate()
 
         self.life_time = 30
