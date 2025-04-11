@@ -9,6 +9,9 @@ CINgurando a Base é um jogo do estilo Tower Defense 2D desenvolvido por alunos 
 - Rafael Nobrega (rdn)
 - Wilhyã Pedro (wpn)
 
+## 🧠 Organização da Equipe
+A estruturação do código e criação das classes principais ficou com Gabriel Rio, José Guilherme e Arthur Fernandes. A parte visual do jogo, como sprites e elementos gráficos, foi feita por Janderson Freitas. Já a organização do projeto, incluindo o README, os slides e documentos complementares, foi responsabilidade de Wilhyã Pedro e Rafael Nóbrega.
+
 ## 🏗️ Arquitetura do Projeto 
 O projeto está organizado em módulos Python, seguindo o paradigma de Orientação a Objetos. A estrutura foi pensada para manter o código modular, reutilizável e de fácil manutenção.  
 
@@ -43,47 +46,26 @@ Cada componente do jogo foi separado em seu próprio arquivo para manter a clare
 └─── random_drops.py # Sistema de geração aleatória de itens (como vida, escudos etc.)  
 │  
 └─── Assets # Imagens e recursos gráficos utilizados no jogo  
-│       Blue_evil_eye_tp.png.png        
-│       Cthulhu_eye_base_tp.png.png      
-│       Cthulhu_eye_base_tp.png.png    
-│       Green_evil_eye_tp.png.png    
-│       Red_evil_eye_tp.png.png     
+│       coin.png  
+│       enemy1.png  
+│       enemy1.webp  
+│       game_over.png  
+│       heart.png  
 │       Inimigo1.png  
-│       Inimigo2.png   
+│       Inimigo2.png  
 │       Inimigo3.png  
-│       arrow.png   
-│       arrow_1.png   
-│       coin.png    
-│       enemy1.png   
-│       enemy1.webp   
-│       fire.png    
-│       fox_archer_left.png    
-│       fox_archer_left_red.png   
-│       fox_archer_left_yellow.png    
-│       fox_warrior.png      
-│       fox_warrior_left.png    
-│       fox_warrior_left_blue.png    
-│       fox_warrior_left_red.png    
-│       fox_warrior_left_yellow.png    
-│       game_over (1).png    
-│       game_over.png    
-│       heart.png    
-│       pathtd.png   
-│       player.png    
-│       raposa_direita.png    
-│       raposa_esquerda.png    
-│       shield.png    
-│       slash.png    
-│       slash_1.png    
-│       tornado.png    
-│       win_screen.png     
+│       pathtd.png  
+│       player.png  
+│       shield.png  
 │  
 └───pycache # Arquivos compilados automaticamente pelo Python  
-│       health_drop.cpython-312.pyc     
-│       mapa.cpython-312.pyc    
-│       enemy.cpython-312.pyc   
-│       enemy.cpython-313.pyc   
-│       mapa.cpython-313.pyc   
+│       coin.cpython-313.pyc  
+│       collide_detector.cpython-313.pyc  
+│       defenses.cpython-313.pyc  
+│       enemy.cpython-313.pyc  
+│       mapa.cpython-313.pyc  
+│       player.cpython-313.pyc  
+│      random_drops.cpython-313.pyc  
 
  ## 🛠️ Ferramentas Utilizadas  
 
@@ -145,7 +127,7 @@ O jogo é do tipo Tower Defense 2D, onde o jogador deve proteger a base posicion
 
 ### 🧠 Lógica do Jogo:  
 - O jogador deve se mover pelo mapa coletando recursos e posicionando defesas em locais estratégicos.  
-- Ganha o jogo se conseguir preencher completamente o mapa com defesas sobrevivendoa todos os ataques e ainda possuir pontos de vida.  
+- Ganha o jogo se conseguir preencher completamente o mapa com defesas e ainda possuir pontos de vida.  
 - Perde o jogo se os pontos de vida do jogador chegarem a zero antes do mapa estar totalmente defendido.  
 
 Essa dinâmica exige que o jogador equilibre bem movimentação, coleta de recursos e posicionamento tático, garantindo que os inimigos não consigam atravessar a base.  
@@ -208,5 +190,8 @@ python main_game.py
 ``` 
 
 O jogo será iniciado em uma janela. Divirta-se defendendo sua base! 
+
+## 📷 Galeria de fotos do jogo
+https://drive.google.com/drive/folders/1Wqc60mPPHz8TKLFxVDbxfiEAWiBU0lE5?usp=sharing
 
  
