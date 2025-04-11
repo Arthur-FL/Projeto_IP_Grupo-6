@@ -79,13 +79,11 @@ Cada componente do jogo foi separado em seu próprio arquivo para manter a clare
 │       win_screen.png     
 │  
 └───pycache # Arquivos compilados automaticamente pelo Python  
-│       coin.cpython-313.pyc     
-│       collide_detector.cpython-313.pyc    
-│       defenses.cpython-313.pyc   
+│       health_drop.cpython-312.pyc     
+│       mapa.cpython-312.pyc    
+│       enemy.cpython-312.pyc   
 │       enemy.cpython-313.pyc   
 │       mapa.cpython-313.pyc   
-│       player.cpython-313.pyc   
-│       random_drops.cpython-313.pyc  
 
  ## 🛠️ Ferramentas Utilizadas  
 
@@ -147,7 +145,7 @@ O jogo é do tipo Tower Defense 2D, onde o jogador deve proteger a base posicion
 
 ### 🧠 Lógica do Jogo:  
 - O jogador deve se mover pelo mapa coletando recursos e posicionando defesas em locais estratégicos.  
-- Ganha o jogo se conseguir preencher completamente o mapa com defesas e ainda possuir pontos de vida.  
+- Ganha o jogo se conseguir preencher completamente o mapa com defesas sobrevivendoa todos os ataques e ainda possuir pontos de vida.  
 - Perde o jogo se os pontos de vida do jogador chegarem a zero antes do mapa estar totalmente defendido.  
 
 Essa dinâmica exige que o jogador equilibre bem movimentação, coleta de recursos e posicionamento tático, garantindo que os inimigos não consigam atravessar a base.  
