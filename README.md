@@ -43,26 +43,49 @@ Cada componente do jogo foi separado em seu próprio arquivo para manter a clare
 └─── random_drops.py # Sistema de geração aleatória de itens (como vida, escudos etc.)  
 │  
 └─── Assets # Imagens e recursos gráficos utilizados no jogo  
-│       coin.png  
-│       enemy1.png  
-│       enemy1.webp  
-│       game_over.png  
-│       heart.png  
+│       Blue_evil_eye_tp.png.png        
+│       Cthulhu_eye_base_tp.png.png      
+│       Cthulhu_eye_base_tp.png.png    
+│       Green_evil_eye_tp.png.png    
+│       Red_evil_eye_tp.png.png     
 │       Inimigo1.png  
-│       Inimigo2.png  
+│       Inimigo2.png   
 │       Inimigo3.png  
-│       pathtd.png  
-│       player.png  
-│       shield.png  
+│       arrow.png   
+│       arrow_1.png   
+│       coin.png    
+│       enemy1.png   
+│       enemy1.webp   
+│       fire.png    
+│       fox_archer_left.png    
+│       fox_archer_left_red.png   
+│       fox_archer_left_yellow.png    
+│       fox_warrior.png      
+│       fox_warrior_left.png    
+│       fox_warrior_left_blue.png    
+│       fox_warrior_left_red.png    
+│       fox_warrior_left_yellow.png    
+│       game_over (1).png    
+│       game_over.png    
+│       heart.png    
+│       pathtd.png   
+│       player.png    
+│       raposa_direita.png    
+│       raposa_esquerda.png    
+│       shield.png    
+│       slash.png    
+│       slash_1.png    
+│       tornado.png    
+│       win_screen.png     
 │  
 └───pycache # Arquivos compilados automaticamente pelo Python  
-│       coin.cpython-313.pyc  
-│       collide_detector.cpython-313.pyc  
-│       defenses.cpython-313.pyc  
-│       enemy.cpython-313.pyc  
-│       mapa.cpython-313.pyc  
-│       player.cpython-313.pyc  
-│      random_drops.cpython-313.pyc  
+│       coin.cpython-313.pyc     
+│       collide_detector.cpython-313.pyc    
+│       defenses.cpython-313.pyc   
+│       enemy.cpython-313.pyc   
+│       mapa.cpython-313.pyc   
+│       player.cpython-313.pyc   
+│       random_drops.cpython-313.pyc  
 
  ## 🛠️ Ferramentas Utilizadas  
 
